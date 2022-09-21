@@ -1,7 +1,11 @@
 .table-container {
   max-height: 700px;
-}
 
-.genre {
-  margin-right: 5px;
+  .genre {
+    margin-right: 5px;
+  }
+
+  .movie-title {
+    cursor: pointer;
+  }
 }

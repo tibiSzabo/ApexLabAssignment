@@ -16,6 +16,10 @@ function App() {
         setQueryString(queryString)
     }
 
+    const handleMovieClicked = () => {
+
+    }
+
     return (
         <div className="App">
             <Grid container spacing={ 2 }>
@@ -27,7 +31,7 @@ function App() {
                 </Grid>
                 <Grid item xs={ 4 }>
                     { isLoading && <CircularProgress /> }
-                    { !isLoading && isSuccess && <Movies movies={movies} /> }
+                    { !isLoading && isSuccess && <Movies onMovieClicked={handleMovieClicked} movies={movies} /> }
                 </Grid>
             </Grid>
         </div>

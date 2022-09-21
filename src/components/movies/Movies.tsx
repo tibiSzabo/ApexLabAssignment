@@ -1,15 +1,16 @@
 import React from 'react'
 import { Genre, Movie } from "../../useRequest"
 
-import { TableBody, TableCell, TableContainer, TableHead, TableRow, Table } from "@mui/material"
+import { TableBody, TableCell, TableContainer, TableHead, TableRow, Table, Link } from "@mui/material"
 
 import './Movies.scss'
 
 type MoviesProps = {
-    movies: Movie []
+    movies: Movie [],
+    onMovieClicked: () => void
 }
 
-function Movies({ movies }: MoviesProps) {
+function Movies({ movies, onMovieClicked }: MoviesProps) {
 
     const createGenreString = (genres: Genre[]) => genres.map(genre => genre.name).join(', ')
 
@@ -29,7 +30,7 @@ function Movies({ movies }: MoviesProps) {
                             key={ movie.id }
                         >
                             <TableCell>
-                                { movie.name }
+                                <Link className="movie-title" onClick={onMovieClicked}>{ movie.name }</Link>
                             </TableCell>
                             <TableCell>{ createGenreString(movie.genres) }</TableCell>
                             <TableCell>{ movie.score }</TableCell>
