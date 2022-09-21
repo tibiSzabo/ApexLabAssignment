@@ -9,17 +9,19 @@ import './App.scss'
 
 function App() {
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={6}>
-                <Search />
+        <div className="App">
+            <Grid container spacing={2}>
+                <Grid item xs={6}>
+                    <Search />
+                </Grid>
+                <Grid item xs={6}>
+                    <Movie />
+                </Grid>
+                <Grid item xs={6}>
+                    <Movies />
+                </Grid>
             </Grid>
-            <Grid item xs={6}>
-                <Movie />
-            </Grid>
-            <Grid item xs={6}>
-                <Movies />
-            </Grid>
-        </Grid>
+        </div>
     )
 }
 
