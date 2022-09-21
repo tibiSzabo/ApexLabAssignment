@@ -1,7 +1,13 @@
 import React from 'react'
+import { Movie } from "../../useRequest"
+
 import './Movies.scss'
 
-function Movies() {
+type MoviesProps = {
+    movies: Movie []
+}
+
+function Movies({ movies }: MoviesProps) {
     return (
         <div>
         </div>

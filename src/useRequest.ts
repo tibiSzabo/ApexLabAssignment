@@ -5,11 +5,11 @@ const API_URL = `https://tmdb.sandbox.zoosh.ie/dev/graphql`
 
 const graphQLClient = new GraphQLClient(API_URL, {})
 
-type Genre = {
+export type Genre = {
     name: string
 }
 
-type Movie = {
+export type Movie = {
     name: string,
     score: number,
     genres: Genre []
@@ -19,7 +19,7 @@ export function useSearchMovies(title: string) {
     return useQuery<Movie[], Error>(title, async () => {
         const { searchMovies } = await graphQLClient.request(gql`
         query SearchMovies {
-          searchMovies(query: "${title}") {
+          searchMovies(query: "${ title }") {
             name
             score
             genres {name}
@@ -27,5 +27,5 @@ export function useSearchMovies(title: string) {
         }
         `)
         return searchMovies
-    })
+    }, { refetchOnWindowFocus: false, enabled: !!title })
 }
