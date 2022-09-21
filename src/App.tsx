@@ -2,14 +2,15 @@ import React, { useState } from 'react'
 import Search from "./components/search/Search"
 import Movie from "./components/movie/Movie"
 import Movies from "./components/movies/Movies"
+import { MovieType, useSearchMovies } from "./useRequest"
 
 import { CircularProgress, Grid } from "@mui/material"
 
 import './App.scss'
-import { useSearchMovies } from "./useRequest"
 
 function App() {
     const [queryString, setQueryString] = useState<string>('')
+    const [selectedMovie, setSelectedMovie] = useState<MovieType | null>(null)
     const { data: movies, error, isSuccess, isLoading, isError } = useSearchMovies(queryString)
 
     const handleSearch = (queryString: string) => {
@@ -30,8 +31,8 @@ function App() {
                     <Movie/>
                 </Grid>
                 <Grid item xs={ 4 }>
-                    { isLoading && <CircularProgress /> }
-                    { !isLoading && isSuccess && <Movies onMovieClicked={handleMovieClicked} movies={movies} /> }
+                    { isLoading && <CircularProgress/> }
+                    { !isLoading && isSuccess && <Movies onMovieClicked={ handleMovieClicked } movies={ movies }/> }
                 </Grid>
             </Grid>
         </div>
