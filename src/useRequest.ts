@@ -15,11 +15,11 @@ type Movie = {
     genres: Genre []
 }
 
-export function useSearchMovies() {
-    return useQuery<Movie[], Error>("get-posts", async () => {
+export function useSearchMovies(title: string) {
+    return useQuery<Movie[], Error>(title, async () => {
         const { searchMovies } = await graphQLClient.request(gql`
         query SearchMovies {
-          searchMovies(query: "fight club") {
+          searchMovies(query: "${title}") {
             name
             score
             genres {name}
