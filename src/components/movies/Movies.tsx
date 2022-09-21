@@ -1,15 +1,18 @@
 import React from 'react'
-import { Movie } from "../../useRequest"
+import { Genre, Movie } from "../../useRequest"
 
 import { TableBody, TableCell, TableContainer, TableHead, TableRow, Table } from "@mui/material"
 
 import './Movies.scss'
 
 type MoviesProps = {
-    movies: Movie [] | undefined
+    movies: Movie []
 }
 
 function Movies({ movies }: MoviesProps) {
+
+    const createGenreString = (genres: Genre[]) => genres.map(genre => genre.name).join(', ')
+
     return (
         <TableContainer className="table-container">
             <Table>
@@ -28,7 +31,7 @@ function Movies({ movies }: MoviesProps) {
                             <TableCell>
                                 { movie.name }
                             </TableCell>
-                            <TableCell>genres</TableCell>
+                            <TableCell>{ createGenreString(movie.genres) }</TableCell>
                             <TableCell>{ movie.score }</TableCell>
                         </TableRow>
                     ) }
