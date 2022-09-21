@@ -3,7 +3,7 @@ import Search from "./components/search/Search"
 import Movie from "./components/movie/Movie"
 import Movies from "./components/movies/Movies"
 
-import { Grid } from "@mui/material"
+import { CircularProgress, Grid } from "@mui/material"
 
 import './App.scss'
 import { useSearchMovies } from "./useRequest"
@@ -19,14 +19,15 @@ function App() {
     return (
         <div className="App">
             <Grid container spacing={ 2 }>
-                <Grid item xs={ 6 }>
+                <Grid item xs={ 4 }>
                     <Search onSearch={ handleSearch }/>
                 </Grid>
-                <Grid item xs={ 6 }>
+                <Grid item xs={ 8 }>
                     <Movie/>
                 </Grid>
-                <Grid item xs={ 6 }>
-                    {/* <Movies />*/ }
+                <Grid item xs={ 4 }>
+                    { isLoading && <CircularProgress /> }
+                    { !isLoading && isSuccess && <Movies movies={movies} /> }
                 </Grid>
             </Grid>
         </div>

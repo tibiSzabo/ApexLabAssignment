@@ -23,7 +23,7 @@ function Search({ onSearch }: SearchProps) {
 
     return (
         <div className="search-container">
-            <TextField onChange={ onInputValueChange } label="Movie title" variant="outlined"/>
+            <TextField onChange={ onInputValueChange } label="Movie title" variant="outlined" className="search-input"/>
             <Button onClick={ handleSearch } variant="text" size="large">Search</Button>
         </div>
     )

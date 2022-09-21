@@ -12,7 +12,8 @@ export type Genre = {
 export type Movie = {
     name: string,
     score: number,
-    genres: Genre []
+    genres: Genre [],
+    id: string
 }
 
 export function useSearchMovies(title: string) {
@@ -23,6 +24,7 @@ export function useSearchMovies(title: string) {
             name
             score
             genres {name}
+            id
           }
         }
         `)
