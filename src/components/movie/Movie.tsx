@@ -12,9 +12,16 @@ type MovieProps = {
 function Movie({ movie }: MovieProps) {
     const [movieWikipediaData, setMovieWikipediaData] = useState<any>(null)
     const [wikiPageId, setWikiPageId] = useState<string>('')
+    const [imdbSearchUrl, setImdbSearchUrl] = useState<string>('')
     const [isFetchingData, setIsFetchingData] = useState<boolean>(false)
     const [noDataFound, setNoDataFound] = useState<boolean>(false)
     const [isFetchError, setIsFetchError] = useState<boolean>(false)
+
+    useEffect(() => {
+        fetchMovieFromWiki()
+    }, [movie])
+
+    const createImdbSearchUrl = (title: string) => 'https://www.imdb.com/find?' + new URLSearchParams({ q: title })
 
     const getFirstSearchResultTitle = async () => {
         const searchParams = {
@@ -66,6 +73,7 @@ function Movie({ movie }: MovieProps) {
             .then((data) => {
                 const pageId = Object.keys(data.query.pages)[0]
                 setWikiPageId(pageId)
+                setImdbSearchUrl(createImdbSearchUrl(title))
                 const { extract } = data.query.pages[pageId]
                 setMovieWikipediaData(extract)
             })
@@ -75,10 +83,6 @@ function Movie({ movie }: MovieProps) {
             })
     }
 
-    useEffect(() => {
-        fetchMovieFromWiki()
-    }, [movie])
-
     return (
         <>
             { isFetchingData && <CircularProgress className="spinner" size={ 80 }/> }
@@ -86,7 +90,10 @@ function Movie({ movie }: MovieProps) {
             { isFetchError && <div>Something went wrong during wikipedia search</div> }
             { movieWikipediaData &&
                 <>
-                    <Link href={ `https://en.wikipedia.org/?curid=${ wikiPageId }` }>Wikipedia page</Link>
+                    <div className="url-container">
+                        <Link href={ `https://en.wikipedia.org/?curid=${ wikiPageId }` }>Wikipedia page</Link>
+                        <Link href={ imdbSearchUrl }>IMDB page</Link>
+                    </div>
                     <div className="movie-container" dangerouslySetInnerHTML={ { __html: movieWikipediaData } }></div>
                 </> }
         </>
