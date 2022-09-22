@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { MovieType } from "../../useRequest"
 
-import { CircularProgress } from "@mui/material"
+import { CircularProgress, Link } from "@mui/material"
 
 import './Movie.scss'
 
@@ -11,6 +11,7 @@ type MovieProps = {
 
 function Movie({ movie }: MovieProps) {
     const [movieWikipediaData, setMovieWikipediaData] = useState<any>(null)
+    const [wikiPageId, setWikiPageId] = useState<string>('')
     const [isFetchingData, setIsFetchingData] = useState<boolean>(false)
     const [noDataFound, setNoDataFound] = useState<boolean>(false)
     const [isFetchError, setIsFetchError] = useState<boolean>(false)
@@ -63,8 +64,9 @@ function Movie({ movie }: MovieProps) {
                 return response.json()
             })
             .then((data) => {
-                const dataKey = Object.keys(data.query.pages)[0]
-                const { extract } = data.query.pages[dataKey]
+                const pageId = Object.keys(data.query.pages)[0]
+                setWikiPageId(pageId)
+                const { extract } = data.query.pages[pageId]
                 setMovieWikipediaData(extract)
             })
             .catch((err) => {
@@ -79,11 +81,14 @@ function Movie({ movie }: MovieProps) {
 
     return (
         <>
-            {isFetchingData && <CircularProgress className="spinner" size={80}/>}
+            { isFetchingData && <CircularProgress className="spinner" size={ 80 }/> }
             { noDataFound && <div>No data found on wikipedia</div> }
             { isFetchError && <div>Something went wrong during wikipedia search</div> }
             { movieWikipediaData &&
-                <div className="movie-container" dangerouslySetInnerHTML={ { __html: movieWikipediaData } }></div> }
+                <>
+                    <Link href={ `https://en.wikipedia.org/?curid=${ wikiPageId }` }>Wikipedia page</Link>
+                    <div className="movie-container" dangerouslySetInnerHTML={ { __html: movieWikipediaData } }></div>
+                </> }
         </>
     )
 }
