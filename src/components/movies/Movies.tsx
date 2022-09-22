@@ -7,7 +7,7 @@ import './Movies.scss'
 
 type MoviesProps = {
     movies: MovieType [],
-    onMovieClicked: () => void
+    onMovieClicked: (Movie: MovieType) => void
 }
 
 function Movies({ movies, onMovieClicked }: MoviesProps) {
@@ -30,7 +30,7 @@ function Movies({ movies, onMovieClicked }: MoviesProps) {
                             key={ movie.id }
                         >
                             <TableCell>
-                                <Link className="movie-title" onClick={onMovieClicked}>{ movie.name }</Link>
+                                <Link className="movie-title" onClick={() => onMovieClicked(movie)}>{ movie.name }</Link>
                             </TableCell>
                             <TableCell>{ createGenreString(movie.genres) }</TableCell>
                             <TableCell>{ movie.score }</TableCell>

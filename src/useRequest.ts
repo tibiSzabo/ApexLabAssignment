@@ -17,7 +17,7 @@ export type MovieType = {
 }
 
 export function useSearchMovies(title: string) {
-    return useQuery<MovieType[], Error>(title, async () => {
+    return useQuery<MovieType[]>(title, async () => {
         const { searchMovies } = await graphQLClient.request(gql`
         query SearchMovies {
           searchMovies(query: "${ title }") {

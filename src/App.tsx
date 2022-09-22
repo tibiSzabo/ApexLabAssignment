@@ -11,28 +11,25 @@ import './App.scss'
 function App() {
     const [queryString, setQueryString] = useState<string>('')
     const [selectedMovie, setSelectedMovie] = useState<MovieType | null>(null)
-    const { data: movies, error, isSuccess, isLoading, isError } = useSearchMovies(queryString)
+    const { data: movies, isSuccess, isLoading, isError } = useSearchMovies(queryString)
 
-    const handleSearch = (queryString: string) => {
-        setQueryString(queryString)
-    }
+    const handleSearch = (queryString: string) => setQueryString(queryString)
 
-    const handleMovieClicked = () => {
-
-    }
+    const handleMovieClicked = (movie: MovieType) => setSelectedMovie(movie)
 
     return (
         <div className="App">
             <Grid container spacing={ 2 }>
-                <Grid item xs={ 4 }>
+                <Grid item xs={ 12 }>
                     <Search onSearch={ handleSearch }/>
                 </Grid>
-                <Grid item xs={ 8 }>
-                    <Movie/>
-                </Grid>
                 <Grid item xs={ 4 }>
+                    { isError && <div>Something went wrong...</div> }
                     { isLoading && <CircularProgress/> }
                     { !isLoading && isSuccess && <Movies onMovieClicked={ handleMovieClicked } movies={ movies }/> }
+                </Grid>
+                <Grid item xs={ 8 }>
+                    { selectedMovie && <Movie movie={ selectedMovie }/> }
                 </Grid>
             </Grid>
         </div>
