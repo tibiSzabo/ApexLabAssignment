@@ -25,7 +25,7 @@ function App() {
                 </Grid>
                 <Grid item xs={ 4 }>
                     { isError && <div>Something went wrong...</div> }
-                    { isLoading && <CircularProgress/> }
+                    { isLoading && <CircularProgress className="spinner" size={80}/> }
                     { !isLoading && isSuccess && <Movies onMovieClicked={ handleMovieClicked } movies={ movies }/> }
                 </Grid>
                 <Grid item xs={ 8 }>
