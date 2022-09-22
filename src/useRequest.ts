@@ -20,11 +20,13 @@ export function useSearchMovies(title: string) {
     return useQuery<MovieType[]>(title, async () => {
         const { searchMovies } = await graphQLClient.request(gql`
         query SearchMovies {
-          searchMovies(query: "${ title }") {
+          searchMovies(query: "${title}") {
+            id
             name
             score
-            genres {name}
-            id
+            genres {
+              name
+            }
           }
         }
         `)
