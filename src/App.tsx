@@ -13,7 +13,10 @@ function App() {
     const [selectedMovie, setSelectedMovie] = useState<MovieType | null>(null)
     const { data: movies, isSuccess, isLoading, isError } = useSearchMovies(queryString)
 
-    const handleSearch = (queryString: string) => setQueryString(queryString)
+    const handleSearch = (queryString: string) => {
+        setQueryString(queryString)
+        setSelectedMovie(null)
+    }
 
     const handleMovieClicked = (movie: MovieType) => setSelectedMovie(movie)
 
